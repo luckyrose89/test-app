@@ -1,0 +1,38 @@
+{
+  "name": "drum-machine",
+  "version": "1.0.0",
+  "description": "A Drum Machine App",
+  "main": "src/server/ClientApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint **/*.{js,jsx} --quiet",
+    "dev": "parcel src/index.html",
+    "build": "parcel build --public-url ./dist/ src/index.html",
+    "start": "babel-node src/server/server.js",
+    "heroku-postbuild": " npm run build"
+  },
+  "author": "Divya Mathur",
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "@reach/router": "^1.2.1",
+    "babel-cli": "^6.26.0",
+    "express": "^4.16.4",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.3.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.2"
+  }
+}
