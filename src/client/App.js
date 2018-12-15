@@ -1,23 +1,27 @@
 import React from "react";
 import { Router, Link } from "@reach/router";
-import Second from "./Second";
 import Drumbeat from "./DrumBeat";
+import Demo from "./demo/Demo";
+import Notebook from "./demo/Notebook";
 
 class App extends React.Component {
   render() {
     return (
       <div>
+        <Link to="/">
+          <Link to="drumbeat">
+            <p>test drumbeat</p>
+          </Link>
+          <Link to="demo">
+            <p>Demo</p>
+          </Link>
           <h1>Hello from React!!</h1>
+        </Link>
         <Router>
           <Drumbeat path="drumbeat" />
-          <Second path="second" />
+          <Demo path="demo" />
+          <Notebook path="demo/notebook" />
         </Router>
-        <Link to="second">
-          <p>Second Page</p>
-        </Link>
-        <Link to="drumbeat">
-          <p>test drumbeat</p>
-        </Link>
       </div>
     );
   }
