@@ -26435,98 +26435,7 @@ function (_React$Component) {
 
 var _default = Drumbeat;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"client/demo/Demo.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _router = require("@reach/router");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Demo =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Demo, _React$Component);
-
-  function Demo() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    var _temp;
-
-    _classCallCheck(this, Demo);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Demo)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      title: ""
-    }, _this.handleChange = function (event) {
-      _this.setState({
-        title: event.target.value
-      });
-    }, _this.handleClick = function () {
-      var heading = _this.state.title;
-
-      if (_this.state.title !== "") {
-        (0, _router.navigate)("demo/notebook", {
-          state: {
-            heading: heading
-          }
-        });
-      }
-    }, _temp));
-  }
-
-  _createClass(Demo, [{
-    key: "render",
-    value: function render() {
-      var title = this.state.title.title;
-      return _react.default.createElement("div", null, _react.default.createElement("p", null, "Create new Notebook"), _react.default.createElement("form", null, _react.default.createElement("label", {
-        htmlFor: "notebook-name"
-      }, "Enter Notebook Subject:"), _react.default.createElement("input", {
-        id: "notebook-name",
-        placeholder: "Enter Title",
-        value: title,
-        onChange: this.handleChange
-      })), _react.default.createElement("button", {
-        onClick: this.handleClick
-      }, "Save"));
-    }
-  }]);
-
-  return Demo;
-}(_react.default.Component);
-
-var _default = Demo;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"client/demo/NotePage.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"client/demo/NotePage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26539,7 +26448,7 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NotePage = function NotePage(props) {
-  return props.notebook.map(function (val, idx) {
+  _react.default.createElement("div", null, props.notebookData.map(function (val, idx) {
     var titleId = "title-".concat(idx);
     var summaryId = "summary-".concat(idx);
     return _react.default.createElement("div", {
@@ -26549,9 +26458,9 @@ var NotePage = function NotePage(props) {
     }, "Title"), _react.default.createElement("input", {
       type: "text",
       name: titleId,
-      value: props.notebook[idx].title,
+      value: props.notebookData[idx].title,
       onChange: props.controlFunc
-    }), props.notebook.questionAnswer.map(function (val, idx) {
+    }), props.notebookData.questionAnswer.map(function (val, idx) {
       var quesId = "ques-".concat(idx),
           ansId = "ans-".concat(idx);
       return _react.default.createElement("div", {
@@ -26564,7 +26473,7 @@ var NotePage = function NotePage(props) {
         "data-id": idx,
         className: "ques",
         id: quesId,
-        value: props.notebook[idx].questionAnswer[idx].ques,
+        value: props.notebookData[idx].questionAnswer[idx].ques,
         onChange: props.controlFunc
       }), _react.default.createElement("label", {
         htmlFor: ansId
@@ -26574,7 +26483,7 @@ var NotePage = function NotePage(props) {
         className: "ans",
         "data-id": idx,
         id: ansId,
-        value: props.notebook.questionAnswer[idx].ans,
+        value: props.notebookData.questionAnswer[idx].ans,
         onChange: props.controlFunc
       }));
     }), _react.default.createElement("input", {
@@ -26586,14 +26495,14 @@ var NotePage = function NotePage(props) {
     }, "Summary"), _react.default.createElement("input", {
       type: "text",
       name: summaryId,
-      value: props.notebook[idx].summary,
+      value: props.notebookData[idx].summary,
       onChange: props.controlFunc
     }), _react.default.createElement("input", {
       type: "submit",
       value: "Save",
       onClick: props.SubmitFormFunc
     }));
-  });
+  }));
 };
 
 var _default = NotePage;
@@ -26683,10 +26592,8 @@ function (_React$Component) {
   _createClass(Notebook, [{
     key: "render",
     value: function render() {
-      var title = this.props.location.state.heading;
-      var _this$state = this.state,
-          noteAdded = _this$state.noteAdded,
-          notebook = _this$state.notebook;
+      var title = this.props.title;
+      var noteAdded = this.state.noteAdded;
 
       if (noteAdded === false) {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", title), _react.default.createElement("button", {
@@ -26694,7 +26601,7 @@ function (_React$Component) {
         }, "Add Page"));
       } else {
         return _react.default.createElement("div", null, _react.default.createElement(_NotePage.default, {
-          notebook: notebook,
+          notebookData: this.state.notebook,
           controlFunc: this.handleChange,
           submitFormFunc: this.handleSubmitForm,
           addNotesFunc: this.handleAddNotes
@@ -26708,7 +26615,104 @@ function (_React$Component) {
 
 var _default = Notebook;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js"}],"client/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js"}],"client/demo/Demo.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Notebook = _interopRequireDefault(require("./Notebook"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Demo =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Demo, _React$Component);
+
+  function Demo() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, Demo);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Demo)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      title: "",
+      notebookCreated: false
+    }, _this.handleChange = function (event) {
+      _this.setState({
+        title: event.target.value
+      });
+    }, _this.handleClick = function () {
+      if (_this.state.title !== "") {
+        _this.setState({
+          notebookCreated: true
+        });
+      }
+    }, _temp));
+  }
+
+  _createClass(Demo, [{
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          notebookCreated = _this$state.notebookCreated,
+          title = _this$state.title;
+
+      if (notebookCreated === false) {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Create new Notebook"), _react.default.createElement("form", null, _react.default.createElement("label", {
+          htmlFor: "notebook-name"
+        }, "Enter Notebook Subject:"), _react.default.createElement("input", {
+          id: "notebook-name",
+          placeholder: "Enter Title",
+          value: title,
+          onChange: this.handleChange
+        })), _react.default.createElement("button", {
+          onClick: this.handleClick
+        }, "Save"));
+      } else {
+        return _react.default.createElement(_Notebook.default, {
+          title: title
+        });
+      }
+    }
+  }]);
+
+  return Demo;
+}(_react.default.Component);
+
+var _default = Demo;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./Notebook":"client/demo/Notebook.js"}],"client/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26820,7 +26824,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52276" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61347" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

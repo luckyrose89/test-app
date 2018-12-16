@@ -38,8 +38,8 @@ class Notebook extends React.Component {
   };
 
   render() {
-    const title = this.props.location.state.heading;
-    let { noteAdded, notebook } = this.state;
+    const title = this.props.title;
+    let { noteAdded } = this.state;
 
     if (noteAdded === false) {
       return (
@@ -52,7 +52,7 @@ class Notebook extends React.Component {
       return (
         <div>
           <NotePage
-            notebook={notebook}
+            notebookData={this.state.notebook}
             controlFunc={this.handleChange}
             submitFormFunc={this.handleSubmitForm}
             addNotesFunc={this.handleAddNotes}
