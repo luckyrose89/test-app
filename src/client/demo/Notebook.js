@@ -4,6 +4,7 @@ import NotePage from "./NotePage";
 class Notebook extends React.Component {
   state = {
     noteAdded: false,
+    pageCount: 0,
     notebook: [
       { title: "", questionAnswer: [{ ques: "", ans: "" }], summary: "" }
     ]
@@ -15,31 +16,38 @@ class Notebook extends React.Component {
     });
   };
   handleAddNotes = () => {
-    // this.setState(prevState => ({
-    //   questionAnswer: [...prevState.questionAnswer, { ques: "", ans: "" }]
-    // }));
+    let notebookCopy = this.state.notebook.slice();
+    let id = this.state.pageCount;
+    notebookCopy[id].questionAnswer.push({ ques: "", ans: "" });
+    this.setState({
+      notebook: notebookCopy
+    });
   };
 
   handleSubmitForm = event => {
     event.preventDefault();
+    this.setState({
+      pageCount: this.state.pageCount + 1
+    });
   };
 
   handleChange = () => {
-    // if (["ques", "ans"].includes(event.target.className)) {
-    //   let questionAnswer = [...this.state.notebook.questionAnswer];
-    //   questionAnswer[event.target.dataset.id][event.target.className] =
-    //     event.target.value;
-    //   this.setState({ questionAnswer });
-    // } else {
-    //   this.setState({
-    //     [event.target.name]: event.target.value
-    //   });
-    // }
+    let notebookCopy = this.state.notebook.slice();
+    let id = this.state.pageCount;
+    if (["ques", "ans"].includes(event.target.className)) {
+      let questionAnswer = notebookCopy[id].questionAnswer;
+      questionAnswer[event.target.dataset.id][event.target.className] =
+        event.target.value;
+      this.setState({ notebook: notebookCopy });
+    } else {
+      notebookCopy[id][event.target.name] = event.target.value;
+      this.setState({ notebook: notebookCopy });
+    }
   };
 
   render() {
     const title = this.props.title;
-    let { noteAdded } = this.state;
+    let { noteAdded, pageCount } = this.state;
 
     if (noteAdded === false) {
       return (
@@ -52,7 +60,7 @@ class Notebook extends React.Component {
       return (
         <div>
           <NotePage
-            notebookData={this.state.notebook}
+            notebookData={this.state.notebook[pageCount]}
             controlFunc={this.handleChange}
             submitFormFunc={this.handleSubmitForm}
             addNotesFunc={this.handleAddNotes}

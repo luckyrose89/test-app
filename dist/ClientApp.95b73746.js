@@ -26448,60 +26448,54 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NotePage = function NotePage(props) {
-  _react.default.createElement("div", null, props.notebookData.map(function (val, idx) {
-    var titleId = "title-".concat(idx);
-    var summaryId = "summary-".concat(idx);
+  return _react.default.createElement("div", null, _react.default.createElement("label", {
+    htmlFor: "title"
+  }, "Title"), _react.default.createElement("input", {
+    type: "text",
+    name: "title",
+    value: props.notebookData.title,
+    onChange: props.controlFunc
+  }), props.notebookData.questionAnswer.map(function (val, idx) {
+    var quesId = "ques-".concat(idx),
+        ansId = "ans-".concat(idx);
     return _react.default.createElement("div", {
       key: idx
     }, _react.default.createElement("label", {
-      htmlFor: titleId
-    }, "Title"), _react.default.createElement("input", {
+      htmlFor: quesId
+    }, " Question "), _react.default.createElement("input", {
       type: "text",
-      name: titleId,
-      value: props.notebookData[idx].title,
+      name: quesId,
+      "data-id": idx,
+      className: "ques",
+      id: quesId,
+      value: props.notebookData.questionAnswer[idx].ques,
       onChange: props.controlFunc
-    }), props.notebookData.questionAnswer.map(function (val, idx) {
-      var quesId = "ques-".concat(idx),
-          ansId = "ans-".concat(idx);
-      return _react.default.createElement("div", {
-        key: idx
-      }, _react.default.createElement("label", {
-        htmlFor: quesId
-      }, " Question "), _react.default.createElement("input", {
-        type: "text",
-        name: quesId,
-        "data-id": idx,
-        className: "ques",
-        id: quesId,
-        value: props.notebookData[idx].questionAnswer[idx].ques,
-        onChange: props.controlFunc
-      }), _react.default.createElement("label", {
-        htmlFor: ansId
-      }, " Answer "), _react.default.createElement("input", {
-        type: "text",
-        name: ansId,
-        className: "ans",
-        "data-id": idx,
-        id: ansId,
-        value: props.notebookData.questionAnswer[idx].ans,
-        onChange: props.controlFunc
-      }));
-    }), _react.default.createElement("input", {
-      type: "button",
-      value: "Add a Note",
-      onClick: props.addNotesFunc
     }), _react.default.createElement("label", {
-      htmlFor: summaryId
-    }, "Summary"), _react.default.createElement("input", {
+      htmlFor: ansId
+    }, " Answer "), _react.default.createElement("input", {
       type: "text",
-      name: summaryId,
-      value: props.notebookData[idx].summary,
+      name: ansId,
+      className: "ans",
+      "data-id": idx,
+      id: ansId,
+      value: props.notebookData.questionAnswer[idx].ans,
       onChange: props.controlFunc
-    }), _react.default.createElement("input", {
-      type: "submit",
-      value: "Save",
-      onClick: props.SubmitFormFunc
     }));
+  }), _react.default.createElement("input", {
+    type: "button",
+    value: "Add a Note",
+    onClick: props.addNotesFunc
+  }), _react.default.createElement("label", {
+    htmlFor: "summary"
+  }, "Summary"), _react.default.createElement("input", {
+    type: "text",
+    name: "summary",
+    value: props.notebookData.summary,
+    onChange: props.controlFunc
+  }), _react.default.createElement("input", {
+    type: "submit",
+    value: "Save",
+    onClick: props.SubmitFormFunc
   }));
 };
 
@@ -26559,6 +26553,7 @@ function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Notebook)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       noteAdded: false,
+      pageCount: 0,
       notebook: [{
         title: "",
         questionAnswer: [{
@@ -26571,21 +26566,43 @@ function (_React$Component) {
       _this.setState({
         noteAdded: true
       });
-    }, _this.handleAddNotes = function () {// this.setState(prevState => ({
-      //   questionAnswer: [...prevState.questionAnswer, { ques: "", ans: "" }]
-      // }));
+    }, _this.handleAddNotes = function () {
+      var notebookCopy = _this.state.notebook.slice();
+
+      var id = _this.state.pageCount;
+      notebookCopy[id].questionAnswer.push({
+        ques: "",
+        ans: ""
+      });
+
+      _this.setState({
+        notebook: notebookCopy
+      });
     }, _this.handleSubmitForm = function (event) {
       event.preventDefault();
-    }, _this.handleChange = function () {// if (["ques", "ans"].includes(event.target.className)) {
-      //   let questionAnswer = [...this.state.notebook.questionAnswer];
-      //   questionAnswer[event.target.dataset.id][event.target.className] =
-      //     event.target.value;
-      //   this.setState({ questionAnswer });
-      // } else {
-      //   this.setState({
-      //     [event.target.name]: event.target.value
-      //   });
-      // }
+
+      _this.setState({
+        pageCount: _this.state.pageCount + 1
+      });
+    }, _this.handleChange = function () {
+      var notebookCopy = _this.state.notebook.slice();
+
+      var id = _this.state.pageCount;
+
+      if (["ques", "ans"].includes(event.target.className)) {
+        var questionAnswer = notebookCopy[id].questionAnswer;
+        questionAnswer[event.target.dataset.id][event.target.className] = event.target.value;
+
+        _this.setState({
+          notebook: notebookCopy
+        });
+      } else {
+        notebookCopy[id][event.target.name] = event.target.value;
+
+        _this.setState({
+          notebook: notebookCopy
+        });
+      }
     }, _temp));
   }
 
@@ -26593,7 +26610,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var title = this.props.title;
-      var noteAdded = this.state.noteAdded;
+      var _this$state = this.state,
+          noteAdded = _this$state.noteAdded,
+          pageCount = _this$state.pageCount;
 
       if (noteAdded === false) {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", title), _react.default.createElement("button", {
@@ -26601,7 +26620,7 @@ function (_React$Component) {
         }, "Add Page"));
       } else {
         return _react.default.createElement("div", null, _react.default.createElement(_NotePage.default, {
-          notebookData: this.state.notebook,
+          notebookData: this.state.notebook[pageCount],
           controlFunc: this.handleChange,
           submitFormFunc: this.handleSubmitForm,
           addNotesFunc: this.handleAddNotes
@@ -26824,7 +26843,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61347" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53670" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
