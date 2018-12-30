@@ -26492,10 +26492,6 @@ var NotePage = function NotePage(props) {
     name: "summary",
     value: props.notebookData.summary,
     onChange: props.controlFunc
-  }), _react.default.createElement("input", {
-    type: "submit",
-    value: "Save",
-    onClick: props.SubmitFormFunc
   }));
 };
 
@@ -26552,7 +26548,8 @@ function (_React$Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Notebook)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      noteAdded: false,
+      title: _this.props.location.state.title,
+      visible: true,
       pageCount: 0,
       notebook: [{
         title: "",
@@ -26564,7 +26561,7 @@ function (_React$Component) {
       }]
     }, _this.handleNoteAdded = function () {
       _this.setState({
-        noteAdded: true
+        visible: false
       });
     }, _this.handleAddNotes = function () {
       var notebookCopy = _this.state.notebook.slice();
@@ -26582,7 +26579,8 @@ function (_React$Component) {
       event.preventDefault();
 
       _this.setState({
-        pageCount: _this.state.pageCount + 1
+        pageCount: _this.state.pageCount + 1,
+        visible: true
       });
     }, _this.handleChange = function () {
       var notebookCopy = _this.state.notebook.slice();
@@ -26609,12 +26607,12 @@ function (_React$Component) {
   _createClass(Notebook, [{
     key: "render",
     value: function render() {
-      var title = this.props.title;
       var _this$state = this.state,
-          noteAdded = _this$state.noteAdded,
+          title = _this$state.title,
+          visible = _this$state.visible,
           pageCount = _this$state.pageCount;
 
-      if (noteAdded === false) {
+      if (visible === true) {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", title), _react.default.createElement("button", {
           onClick: this.handleNoteAdded
         }, "Add Page"));
@@ -26622,8 +26620,11 @@ function (_React$Component) {
         return _react.default.createElement("div", null, _react.default.createElement(_NotePage.default, {
           notebookData: this.state.notebook[pageCount],
           controlFunc: this.handleChange,
-          submitFormFunc: this.handleSubmitForm,
           addNotesFunc: this.handleAddNotes
+        }), _react.default.createElement("input", {
+          type: "submit",
+          value: "Save",
+          onClick: this.handleSubmitForm
         }));
       }
     }
@@ -26643,6 +26644,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _router = require("@reach/router");
 
 var _Notebook = _interopRequireDefault(require("./Notebook"));
 
@@ -26685,16 +26688,19 @@ function (_React$Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Demo)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      title: "",
-      notebookCreated: false
+      title: ""
     }, _this.handleChange = function (event) {
       _this.setState({
         title: event.target.value
       });
     }, _this.handleClick = function () {
-      if (_this.state.title !== "") {
-        _this.setState({
-          notebookCreated: true
+      var title = _this.state.title;
+
+      if (title !== "") {
+        (0, _router.navigate)("demo/notebook", {
+          state: {
+            title: title
+          }
         });
       }
     }, _temp));
@@ -26703,26 +26709,17 @@ function (_React$Component) {
   _createClass(Demo, [{
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          notebookCreated = _this$state.notebookCreated,
-          title = _this$state.title;
-
-      if (notebookCreated === false) {
-        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Create new Notebook"), _react.default.createElement("form", null, _react.default.createElement("label", {
-          htmlFor: "notebook-name"
-        }, "Enter Notebook Subject:"), _react.default.createElement("input", {
-          id: "notebook-name",
-          placeholder: "Enter Title",
-          value: title,
-          onChange: this.handleChange
-        })), _react.default.createElement("button", {
-          onClick: this.handleClick
-        }, "Save"));
-      } else {
-        return _react.default.createElement(_Notebook.default, {
-          title: title
-        });
-      }
+      var title = this.state.title;
+      return _react.default.createElement("div", null, _react.default.createElement("p", null, "Create new Notebook"), _react.default.createElement("form", null, _react.default.createElement("label", {
+        htmlFor: "notebook-name"
+      }, "Enter Notebook Subject:"), _react.default.createElement("input", {
+        id: "notebook-name",
+        placeholder: "Enter Title",
+        value: title,
+        onChange: this.handleChange
+      })), _react.default.createElement("button", {
+        onClick: this.handleClick
+      }, "Save"));
     }
   }]);
 
@@ -26731,7 +26728,7 @@ function (_React$Component) {
 
 var _default = Demo;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Notebook":"client/demo/Notebook.js"}],"client/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Notebook":"client/demo/Notebook.js"}],"client/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26843,7 +26840,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53670" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50799" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -47,7 +47,6 @@ const NotePage = props => {
         value={props.notebookData.summary}
         onChange={props.controlFunc}
       />
-      <input type="submit" value="Save" onClick={props.SubmitFormFunc} />
     </div>
   );
 };

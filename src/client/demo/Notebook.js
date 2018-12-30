@@ -3,7 +3,8 @@ import NotePage from "./NotePage";
 
 class Notebook extends React.Component {
   state = {
-    noteAdded: false,
+    title: this.props.location.state.title,
+    visible: true,
     pageCount: 0,
     notebook: [
       { title: "", questionAnswer: [{ ques: "", ans: "" }], summary: "" }
@@ -12,7 +13,7 @@ class Notebook extends React.Component {
 
   handleNoteAdded = () => {
     this.setState({
-      noteAdded: true
+      visible: false
     });
   };
   handleAddNotes = () => {
@@ -27,7 +28,8 @@ class Notebook extends React.Component {
   handleSubmitForm = event => {
     event.preventDefault();
     this.setState({
-      pageCount: this.state.pageCount + 1
+      pageCount: this.state.pageCount + 1,
+      visible: true
     });
   };
 
@@ -46,10 +48,8 @@ class Notebook extends React.Component {
   };
 
   render() {
-    const title = this.props.title;
-    let { noteAdded, pageCount } = this.state;
-
-    if (noteAdded === false) {
+    let { title, visible, pageCount } = this.state;
+    if (visible === true) {
       return (
         <div>
           <p>Hi I am just a notebook called {title}</p>
@@ -62,9 +62,9 @@ class Notebook extends React.Component {
           <NotePage
             notebookData={this.state.notebook[pageCount]}
             controlFunc={this.handleChange}
-            submitFormFunc={this.handleSubmitForm}
             addNotesFunc={this.handleAddNotes}
           />
+          <input type="submit" value="Save" onClick={this.handleSubmitForm} />
         </div>
       );
     }
