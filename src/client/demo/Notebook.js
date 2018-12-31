@@ -1,5 +1,6 @@
 import React from "react";
 import NotePage from "./NotePage";
+import { navigate } from "@reach/router";
 
 class Notebook extends React.Component {
   state = {
@@ -47,13 +48,32 @@ class Notebook extends React.Component {
     }
   };
 
+  handleViewNotes = () => {
+    navigate("notebook/viewnote");
+  };
+
   render() {
     let { title, visible, pageCount } = this.state;
+    const addPage = <button onClick={this.handleNoteAdded}>Add Page</button>;
+    const viewNotes = (
+      <button onClick={this.handleViewNotes}>View Notes</button>
+    );
+    const createFlashCards = (
+      <button onClick={this.handleCreateFlashCards}>Create Flashcards</button>
+    );
+    // const viewFlashCards = <button onClick={this.handleViewFlashCards}>View Flashcards</button>;
     if (visible === true) {
       return (
         <div>
           <p>Hi I am just a notebook called {title}</p>
-          <button onClick={this.handleNoteAdded}>Add Page</button>
+          {pageCount > 0 ? (
+            <div>
+              {viewNotes}
+              {createFlashCards}
+            </div>
+          ) : (
+            addPage
+          )}
         </div>
       );
     } else {

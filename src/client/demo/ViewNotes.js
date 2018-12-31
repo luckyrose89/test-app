@@ -1,11 +1,9 @@
 import React from "react";
 
-const ViewNotes = props => {
-  return (
-    <div>
-      <p>This is where you see notes</p>
-    </div>
-  );
-};
+class ViewNotes extends React.Component {
+  render() {
+    return <div>This is where you see the notes</div>;
+  }
+}
 
 export default ViewNotes;
