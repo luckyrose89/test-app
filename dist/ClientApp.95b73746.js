@@ -26545,7 +26545,11 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ViewNotes = function ViewNotes(props) {
-  return _react.default.createElement("div", null, "This is where you see the notes", _react.default.createElement("button", {
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Title"), _react.default.createElement("p", null, props.notebook[0].title), _react.default.createElement("div", null, _react.default.createElement("span", null, _react.default.createElement("h3", null, "Question ")), _react.default.createElement("span", null, _react.default.createElement("h3", null, " Answer"))), props.notebook[0].questionAnswer.map(function (item) {
+    return _react.default.createElement("p", {
+      key: item
+    }, _react.default.createElement("span", null, item.ques, " "), _react.default.createElement("span", null, " ", item.ans));
+  }), _react.default.createElement("h2", null, "Summary"), _react.default.createElement("p", null, props.notebook[0].summary), _react.default.createElement("button", {
     onClick: props.backHandler
   }, "Back"));
 };
@@ -26687,7 +26691,7 @@ function (_React$Component) {
         viewNotesHandler: this.handleViewNotes,
         createFlashCardHandler: this.handleCreateFlashCards
       }), visible === 2 && _react.default.createElement(_NotePage.default, {
-        notebookData: this.state.notebook[pageCount],
+        notebookData: notebook[pageCount],
         controlFunc: this.handleChange,
         addNotesFunc: this.handleAddNotes,
         submitFormFunc: this.handleSubmitForm
@@ -26908,7 +26912,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52897" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58744" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

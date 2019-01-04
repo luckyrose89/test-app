@@ -80,7 +80,7 @@ class Notebook extends React.Component {
         )}
         {visible === 2 && (
           <NotePage
-            notebookData={this.state.notebook[pageCount]}
+            notebookData={notebook[pageCount]}
             controlFunc={this.handleChange}
             addNotesFunc={this.handleAddNotes}
             submitFormFunc={this.handleSubmitForm}
