@@ -3,7 +3,6 @@ import { Router, Link } from "@reach/router";
 import Drumbeat from "./DrumBeat";
 import Demo from "./demo/Demo";
 import Notebook from "./demo/Notebook";
-import ViewNotes from "./demo/ViewNotes";
 
 class App extends React.Component {
   render() {
@@ -22,7 +21,6 @@ class App extends React.Component {
           <Drumbeat path="drumbeat" />
           <Demo path="demo" />
           <Notebook path="demo/notebook" />
-          <ViewNotes path="demo/notebook/viewnote" />
         </Router>
       </div>
     );

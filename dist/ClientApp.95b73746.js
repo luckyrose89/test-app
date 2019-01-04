@@ -26492,10 +26492,65 @@ var NotePage = function NotePage(props) {
     name: "summary",
     value: props.notebookData.summary,
     onChange: props.controlFunc
+  }), _react.default.createElement("input", {
+    type: "submit",
+    value: "Save",
+    onClick: props.submitFormFunc
   }));
 };
 
 var _default = NotePage;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"client/demo/ViewNotebook.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ViewNotebook = function ViewNotebook(props) {
+  var addPage = _react.default.createElement("button", {
+    onClick: props.addNoteHandler
+  }, "Add Page");
+
+  var viewNotes = _react.default.createElement("button", {
+    onClick: props.viewNotesHandler
+  }, "View Notes");
+
+  var createFlashCards = _react.default.createElement("button", {
+    onClick: props.createFlashCardHandler
+  }, "Create Flashcards"); // const viewFlashCards = <button onClick={props.ViewFlashCardHandler}>View Flashcards</button>;
+
+
+  return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", props.title), props.pageCount > 0 ? _react.default.createElement("div", null, viewNotes, createFlashCards) : addPage);
+};
+
+var _default = ViewNotebook;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"client/demo/ViewNotes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ViewNotes = function ViewNotes(props) {
+  return _react.default.createElement("div", null, "This is where you see the notes", _react.default.createElement("button", {
+    onClick: props.backHandler
+  }, "Back"));
+};
+
+var _default = ViewNotes;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"client/demo/Notebook.js":[function(require,module,exports) {
 "use strict";
@@ -26509,7 +26564,9 @@ var _react = _interopRequireDefault(require("react"));
 
 var _NotePage = _interopRequireDefault(require("./NotePage"));
 
-var _router = require("@reach/router");
+var _ViewNotebook = _interopRequireDefault(require("./ViewNotebook"));
+
+var _ViewNotes = _interopRequireDefault(require("./ViewNotes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26551,7 +26608,7 @@ function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Notebook)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       title: _this.props.location.state.title,
-      visible: true,
+      visible: 1,
       pageCount: 0,
       notebook: [{
         title: "",
@@ -26561,9 +26618,13 @@ function (_React$Component) {
         }],
         summary: ""
       }]
+    }, _this.resetVisible = function () {
+      _this.setState({
+        visible: 1
+      });
     }, _this.handleNoteAdded = function () {
       _this.setState({
-        visible: false
+        visible: 2
       });
     }, _this.handleAddNotes = function () {
       var notebookCopy = _this.state.notebook.slice();
@@ -26580,9 +26641,10 @@ function (_React$Component) {
     }, _this.handleSubmitForm = function (event) {
       event.preventDefault();
 
+      _this.resetVisible();
+
       _this.setState({
-        pageCount: _this.state.pageCount + 1,
-        visible: true
+        pageCount: _this.state.pageCount + 1
       });
     }, _this.handleChange = function () {
       var notebookCopy = _this.state.notebook.slice();
@@ -26604,8 +26666,10 @@ function (_React$Component) {
         });
       }
     }, _this.handleViewNotes = function () {
-      (0, _router.navigate)("notebook/viewnote");
-    }, _temp));
+      _this.setState({
+        visible: 3
+      });
+    }, _this.handleCreateFlashCards = function () {}, _this.handleViewFlashCards = function () {}, _temp));
   }
 
   _createClass(Notebook, [{
@@ -26614,34 +26678,23 @@ function (_React$Component) {
       var _this$state = this.state,
           title = _this$state.title,
           visible = _this$state.visible,
-          pageCount = _this$state.pageCount;
-
-      var addPage = _react.default.createElement("button", {
-        onClick: this.handleNoteAdded
-      }, "Add Page");
-
-      var viewNotes = _react.default.createElement("button", {
-        onClick: this.handleViewNotes
-      }, "View Notes");
-
-      var createFlashCards = _react.default.createElement("button", {
-        onClick: this.handleCreateFlashCards
-      }, "Create Flashcards"); // const viewFlashCards = <button onClick={this.handleViewFlashCards}>View Flashcards</button>;
-
-
-      if (visible === true) {
-        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", title), pageCount > 0 ? _react.default.createElement("div", null, viewNotes, createFlashCards) : addPage);
-      } else {
-        return _react.default.createElement("div", null, _react.default.createElement(_NotePage.default, {
-          notebookData: this.state.notebook[pageCount],
-          controlFunc: this.handleChange,
-          addNotesFunc: this.handleAddNotes
-        }), _react.default.createElement("input", {
-          type: "submit",
-          value: "Save",
-          onClick: this.handleSubmitForm
-        }));
-      }
+          pageCount = _this$state.pageCount,
+          notebook = _this$state.notebook;
+      return _react.default.createElement("div", null, visible === 1 && _react.default.createElement(_ViewNotebook.default, {
+        pageCount: pageCount,
+        title: title,
+        addNoteHandler: this.handleNoteAdded,
+        viewNotesHandler: this.handleViewNotes,
+        createFlashCardHandler: this.handleCreateFlashCards
+      }), visible === 2 && _react.default.createElement(_NotePage.default, {
+        notebookData: this.state.notebook[pageCount],
+        controlFunc: this.handleChange,
+        addNotesFunc: this.handleAddNotes,
+        submitFormFunc: this.handleSubmitForm
+      }), visible === 3 && _react.default.createElement(_ViewNotes.default, {
+        notebook: notebook,
+        backHandler: this.resetVisible
+      }));
     }
   }]);
 
@@ -26650,7 +26703,7 @@ function (_React$Component) {
 
 var _default = Notebook;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"client/demo/Demo.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js","./ViewNotebook":"client/demo/ViewNotebook.js","./ViewNotes":"client/demo/ViewNotes.js"}],"client/demo/Demo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26743,60 +26796,7 @@ function (_React$Component) {
 
 var _default = Demo;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Notebook":"client/demo/Notebook.js"}],"client/demo/ViewNotes.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var ViewNotes =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(ViewNotes, _React$Component);
-
-  function ViewNotes() {
-    _classCallCheck(this, ViewNotes);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(ViewNotes).apply(this, arguments));
-  }
-
-  _createClass(ViewNotes, [{
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", null, "This is where you see the notes");
-    }
-  }]);
-
-  return ViewNotes;
-}(_react.default.Component);
-
-var _default = ViewNotes;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"client/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Notebook":"client/demo/Notebook.js"}],"client/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26813,8 +26813,6 @@ var _DrumBeat = _interopRequireDefault(require("./DrumBeat"));
 var _Demo = _interopRequireDefault(require("./demo/Demo"));
 
 var _Notebook = _interopRequireDefault(require("./demo/Notebook"));
-
-var _ViewNotes = _interopRequireDefault(require("./demo/ViewNotes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26862,8 +26860,6 @@ function (_React$Component) {
         path: "demo"
       }), _react.default.createElement(_Notebook.default, {
         path: "demo/notebook"
-      }), _react.default.createElement(_ViewNotes.default, {
-        path: "demo/notebook/viewnote"
       })));
     }
   }]);
@@ -26873,7 +26869,7 @@ function (_React$Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./DrumBeat":"client/DrumBeat.js","./demo/Demo":"client/demo/Demo.js","./demo/Notebook":"client/demo/Notebook.js","./demo/ViewNotes":"client/demo/ViewNotes.js"}],"server/ClientApp.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./DrumBeat":"client/DrumBeat.js","./demo/Demo":"client/demo/Demo.js","./demo/Notebook":"client/demo/Notebook.js"}],"server/ClientApp.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -26912,7 +26908,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64899" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52897" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
