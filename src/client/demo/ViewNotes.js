@@ -13,9 +13,9 @@ const ViewNotes = props => {
           <h3> Answer</h3>
         </span>
       </div>
-      {props.notebook[0].questionAnswer.map(item => {
+      {props.notebook[0].questionAnswer.map((item, id) => {
         return (
-          <p key={item}>
+          <p key={id}>
             <span>{item.ques} </span>
             <span> {item.ans}</span>
           </p>

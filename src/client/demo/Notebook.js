@@ -2,6 +2,7 @@ import React from "react";
 import NotePage from "./NotePage";
 import ViewNotebook from "./ViewNotebook";
 import ViewNotes from "./ViewNotes";
+import ViewFlashCards from "./ViewFlashcards";
 
 class Notebook extends React.Component {
   state = {
@@ -61,9 +62,11 @@ class Notebook extends React.Component {
     });
   };
 
-  handleCreateFlashCards = () => {};
-
-  handleViewFlashCards = () => {};
+  handleCreateFlashCards = () => {
+    this.setState({
+      visible: 4
+    });
+  };
 
   render() {
     let { title, visible, pageCount, notebook } = this.state;
@@ -88,6 +91,13 @@ class Notebook extends React.Component {
         )}
         {visible === 3 && (
           <ViewNotes notebook={notebook} backHandler={this.resetVisible} />
+        )}
+        {visible === 4 && (
+          <ViewFlashCards
+            notebook={notebook}
+            title={title}
+            backHandler={this.resetVisible}
+          />
         )}
       </div>
     );

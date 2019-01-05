@@ -26545,9 +26545,9 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ViewNotes = function ViewNotes(props) {
-  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Title"), _react.default.createElement("p", null, props.notebook[0].title), _react.default.createElement("div", null, _react.default.createElement("span", null, _react.default.createElement("h3", null, "Question ")), _react.default.createElement("span", null, _react.default.createElement("h3", null, " Answer"))), props.notebook[0].questionAnswer.map(function (item) {
+  return _react.default.createElement("div", null, _react.default.createElement("h2", null, "Title"), _react.default.createElement("p", null, props.notebook[0].title), _react.default.createElement("div", null, _react.default.createElement("span", null, _react.default.createElement("h3", null, "Question ")), _react.default.createElement("span", null, _react.default.createElement("h3", null, " Answer"))), props.notebook[0].questionAnswer.map(function (item, id) {
     return _react.default.createElement("p", {
-      key: item
+      key: id
     }, _react.default.createElement("span", null, item.ques, " "), _react.default.createElement("span", null, " ", item.ans));
   }), _react.default.createElement("h2", null, "Summary"), _react.default.createElement("p", null, props.notebook[0].summary), _react.default.createElement("button", {
     onClick: props.backHandler
@@ -26555,6 +26555,26 @@ var ViewNotes = function ViewNotes(props) {
 };
 
 var _default = ViewNotes;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"client/demo/ViewFlashcards.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ViewFlashCards = function ViewFlashCards(props) {
+  return _react.default.createElement("div", null, "This is where you see Flashcards for ", props.title, " notebook", _react.default.createElement("button", {
+    onClick: props.backHandler
+  }, "Back"));
+};
+
+var _default = ViewFlashCards;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"client/demo/Notebook.js":[function(require,module,exports) {
 "use strict";
@@ -26571,6 +26591,8 @@ var _NotePage = _interopRequireDefault(require("./NotePage"));
 var _ViewNotebook = _interopRequireDefault(require("./ViewNotebook"));
 
 var _ViewNotes = _interopRequireDefault(require("./ViewNotes"));
+
+var _ViewFlashcards = _interopRequireDefault(require("./ViewFlashcards"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26673,7 +26695,11 @@ function (_React$Component) {
       _this.setState({
         visible: 3
       });
-    }, _this.handleCreateFlashCards = function () {}, _this.handleViewFlashCards = function () {}, _temp));
+    }, _this.handleCreateFlashCards = function () {
+      _this.setState({
+        visible: 4
+      });
+    }, _temp));
   }
 
   _createClass(Notebook, [{
@@ -26698,6 +26724,10 @@ function (_React$Component) {
       }), visible === 3 && _react.default.createElement(_ViewNotes.default, {
         notebook: notebook,
         backHandler: this.resetVisible
+      }), visible === 4 && _react.default.createElement(_ViewFlashcards.default, {
+        notebook: notebook,
+        title: title,
+        backHandler: this.resetVisible
       }));
     }
   }]);
@@ -26707,7 +26737,7 @@ function (_React$Component) {
 
 var _default = Notebook;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js","./ViewNotebook":"client/demo/ViewNotebook.js","./ViewNotes":"client/demo/ViewNotes.js"}],"client/demo/Demo.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./NotePage":"client/demo/NotePage.js","./ViewNotebook":"client/demo/ViewNotebook.js","./ViewNotes":"client/demo/ViewNotes.js","./ViewFlashcards":"client/demo/ViewFlashcards.js"}],"client/demo/Demo.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26912,7 +26942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58744" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50082" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
