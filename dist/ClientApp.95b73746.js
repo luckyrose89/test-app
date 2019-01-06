@@ -26568,11 +26568,68 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ViewFlashCards = function ViewFlashCards(props) {
-  return _react.default.createElement("div", null, "This is where you see Flashcards for ", props.title, " notebook", _react.default.createElement("button", {
-    onClick: props.backHandler
-  }, "Back"));
-};
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var ViewFlashCards =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ViewFlashCards, _React$Component);
+
+  function ViewFlashCards() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, ViewFlashCards);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ViewFlashCards)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      counter: 0
+    }, _temp));
+  }
+
+  _createClass(ViewFlashCards, [{
+    key: "render",
+    // handleNext = () => {
+    //   this.setState({
+    //     counter: this.state.counter + 1
+    //   });
+    // };
+    value: function render() {
+      var quesAns = this.props.notebook.map(function (item) {
+        return item.questionAnswer;
+      });
+      var queryArray = [].concat.apply([], quesAns);
+      var counter = this.state.counter;
+      return _react.default.createElement("div", null, "This is where you see Flashcards for ", this.props.title, " notebook", _react.default.createElement("p", null, "Click the Card to View Answer"), _react.default.createElement("div", null, queryArray[counter].ques), _react.default.createElement("div", null, _react.default.createElement("button", null, "next"), _react.default.createElement("button", null, "previous")), _react.default.createElement("button", {
+        onClick: this.props.backHandler
+      }, "Back"));
+    }
+  }]);
+
+  return ViewFlashCards;
+}(_react.default.Component);
 
 var _default = ViewFlashCards;
 exports.default = _default;
@@ -26942,7 +26999,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50082" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62142" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
