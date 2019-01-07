@@ -8,14 +8,16 @@ const ViewNotebook = props => {
   const createFlashCards = (
     <button onClick={props.createFlashCardHandler}>Create Flashcards</button>
   );
-  // const viewFlashCards = <button onClick={props.ViewFlashCardHandler}>View Flashcards</button>;
+  const viewFlashCards = (
+    <button onClick={props.ViewFlashCardHandler}>View Flashcards</button>
+  );
   return (
     <div>
       <p>Hi I am just a notebook called {props.title}</p>
       {props.pageCount > 0 ? (
         <div>
           {viewNotes}
-          {createFlashCards}
+          {!props.flashcards ? createFlashCards : viewFlashCards}
         </div>
       ) : (
         addPage

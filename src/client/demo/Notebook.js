@@ -9,6 +9,7 @@ class Notebook extends React.Component {
     title: this.props.location.state.title,
     visible: 1,
     pageCount: 0,
+    flashcards: false,
     notebook: [
       { title: "", questionAnswer: [{ ques: "", ans: "" }], summary: "" }
     ]
@@ -64,21 +65,24 @@ class Notebook extends React.Component {
 
   handleCreateFlashCards = () => {
     this.setState({
+      flashcards: true,
       visible: 4
     });
   };
 
   render() {
-    let { title, visible, pageCount, notebook } = this.state;
+    let { title, visible, pageCount, notebook, flashcards } = this.state;
     return (
       <div>
         {visible === 1 && (
           <ViewNotebook
             pageCount={pageCount}
             title={title}
+            flashcards={flashcards}
             addNoteHandler={this.handleNoteAdded}
             viewNotesHandler={this.handleViewNotes}
             createFlashCardHandler={this.handleCreateFlashCards}
+            ViewFlashCardHandler={this.handleCreateFlashCards}
           />
         )}
         {visible === 2 && (

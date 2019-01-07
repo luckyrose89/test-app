@@ -26524,10 +26524,13 @@ var ViewNotebook = function ViewNotebook(props) {
 
   var createFlashCards = _react.default.createElement("button", {
     onClick: props.createFlashCardHandler
-  }, "Create Flashcards"); // const viewFlashCards = <button onClick={props.ViewFlashCardHandler}>View Flashcards</button>;
+  }, "Create Flashcards");
 
+  var viewFlashCards = _react.default.createElement("button", {
+    onClick: props.ViewFlashCardHandler
+  }, "View Flashcards");
 
-  return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", props.title), props.pageCount > 0 ? _react.default.createElement("div", null, viewNotes, createFlashCards) : addPage);
+  return _react.default.createElement("div", null, _react.default.createElement("p", null, "Hi I am just a notebook called ", props.title), props.pageCount > 0 ? _react.default.createElement("div", null, viewNotes, !props.flashcards ? createFlashCards : viewFlashCards) : addPage);
 };
 
 var _default = ViewNotebook;
@@ -26720,6 +26723,7 @@ function (_React$Component) {
       title: _this.props.location.state.title,
       visible: 1,
       pageCount: 0,
+      flashcards: false,
       notebook: [{
         title: "",
         questionAnswer: [{
@@ -26781,6 +26785,7 @@ function (_React$Component) {
       });
     }, _this.handleCreateFlashCards = function () {
       _this.setState({
+        flashcards: true,
         visible: 4
       });
     }, _temp));
@@ -26793,13 +26798,16 @@ function (_React$Component) {
           title = _this$state.title,
           visible = _this$state.visible,
           pageCount = _this$state.pageCount,
-          notebook = _this$state.notebook;
+          notebook = _this$state.notebook,
+          flashcards = _this$state.flashcards;
       return _react.default.createElement("div", null, visible === 1 && _react.default.createElement(_ViewNotebook.default, {
         pageCount: pageCount,
         title: title,
+        flashcards: flashcards,
         addNoteHandler: this.handleNoteAdded,
         viewNotesHandler: this.handleViewNotes,
-        createFlashCardHandler: this.handleCreateFlashCards
+        createFlashCardHandler: this.handleCreateFlashCards,
+        ViewFlashCardHandler: this.handleCreateFlashCards
       }), visible === 2 && _react.default.createElement(_NotePage.default, {
         notebookData: notebook[pageCount],
         controlFunc: this.handleChange,
@@ -27026,7 +27034,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52556" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58668" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
