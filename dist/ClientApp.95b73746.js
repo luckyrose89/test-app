@@ -26605,24 +26605,51 @@ function (_React$Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ViewFlashCards)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      counter: 0
+      counter: 0,
+      flip: false
+    }, _this.handleNext = function () {
+      _this.setState({
+        counter: _this.state.counter + 1,
+        flip: false
+      });
+    }, _this.handlePrevious = function () {
+      _this.setState({
+        counter: _this.state.counter - 1,
+        flip: false
+      });
+    }, _this.handleFlip = function () {
+      if (_this.state.flip === false) {
+        _this.setState({
+          flip: true
+        });
+      } else {
+        _this.setState({
+          flip: false
+        });
+      }
     }, _temp));
   }
 
   _createClass(ViewFlashCards, [{
     key: "render",
-    // handleNext = () => {
-    //   this.setState({
-    //     counter: this.state.counter + 1
-    //   });
-    // };
     value: function render() {
       var quesAns = this.props.notebook.map(function (item) {
         return item.questionAnswer;
       });
       var queryArray = [].concat.apply([], quesAns);
-      var counter = this.state.counter;
-      return _react.default.createElement("div", null, "This is where you see Flashcards for ", this.props.title, " notebook", _react.default.createElement("p", null, "Click the Card to View Answer"), _react.default.createElement("div", null, queryArray[counter].ques), _react.default.createElement("div", null, _react.default.createElement("button", null, "next"), _react.default.createElement("button", null, "previous")), _react.default.createElement("button", {
+      var _this$state = this.state,
+          counter = _this$state.counter,
+          flip = _this$state.flip;
+      return _react.default.createElement("div", null, "This is where you see Flashcards for ", this.props.title, " notebook", _react.default.createElement("p", null, "Click the Card to View Answer"), _react.default.createElement("div", {
+        onClick: this.handleFlip,
+        onKeyDown: this.handleFlip,
+        role: "button",
+        tabIndex: "0"
+      }, _react.default.createElement("p", null, !flip ? queryArray[counter].ques : queryArray[counter].ans)), _react.default.createElement("div", null, counter < queryArray.length - 1 && _react.default.createElement("button", {
+        onClick: this.handleNext
+      }, "next"), counter !== 0 && _react.default.createElement("button", {
+        onClick: this.handlePrevious
+      }, "previous")), _react.default.createElement("button", {
         onClick: this.props.backHandler
       }, "Back"));
     }
@@ -26999,7 +27026,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62142" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52556" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
