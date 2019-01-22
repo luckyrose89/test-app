@@ -1,6 +1,5 @@
 import React from "react";
 import { navigate } from "@reach/router";
-import Notebook from "./Notebook";
 
 class Demo extends React.Component {
   state = {

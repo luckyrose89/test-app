@@ -9,16 +9,12 @@ class App extends React.Component {
     return (
       <div>
         <Link to="/">
-          <Link to="drumbeat">
-            <p>test drumbeat</p>
-          </Link>
           <Link to="demo">
             <p>Demo</p>
           </Link>
           <h1>Hello from React!!</h1>
         </Link>
         <Router>
-          <Drumbeat path="drumbeat" />
           <Demo path="demo" />
           <Notebook path="demo/notebook" />
         </Router>

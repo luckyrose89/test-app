@@ -15,12 +15,14 @@
   "author": "Divya Mathur",
   "license": "MIT",
   "dependencies": {
+    "@reach/router": "^1.2.1",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "@reach/router": "^1.2.1",
-    "babel-cli": "^6.26.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongoose": "^5.4.5",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
